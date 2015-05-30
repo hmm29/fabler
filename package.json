@@ -1,0 +1,26 @@
+{
+  "name": "Fabler",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh"
+  },
+  "dependencies": {
+    "jest": {
+      "scriptPreprocessor": "<rootDir>/node_modules/react-native/jestSupport/scriptPreprocess.js",
+      "setupEnvScriptFile": "<rootDir>/node_modules/react-native/jestSupport/env.js",
+      "testFileExtensions": [
+        "js"
+      ],
+      "unmockedModulePathPatterns": [
+        "source-map"
+      ]
+    },
+    "lodash": "3.8.0",
+    "react-native": "^0.4.4",
+    "react-native-icons": "0.0.8",
+    "react-native-navbar": "0.5.0",
+    "react-native-side-menu": "^0.6.0",
+    "react-timer-mixin": "0.13.1"
+  }
+}
