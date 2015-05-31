@@ -19,14 +19,6 @@ var {
     Navigator
     } = React;
 
-var Menu = React.createClass({
-    render: function () {
-        return (
-            <Text>I am the menu</Text>
-        );
-    }
-});
-
 var FablerApplication = React.createClass({
     renderScene(route, navigator) {
         var Component = route.component;
@@ -52,10 +44,6 @@ var FablerApplication = React.createClass({
         else {
             this.refs.nav.push(route);
         }
-    },
-
-    handleNext() {
-        alert('Next button click handler');
     },
 
     render() {
@@ -90,6 +78,17 @@ var FablerApplication = React.createClass({
                     }}
                     />
             </SideMenu>
+        );
+    }
+});
+
+var Menu = React.createClass({
+    sideMenuClickHandler() {
+        this.props.menuActions.toggle();
+    },
+    render() {
+        return (
+            <Text>I am the side menu.</Text>
         );
     }
 });
