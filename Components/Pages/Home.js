@@ -6,119 +6,76 @@
 var React = require('react-native');
 var {
     StyleSheet,
-    PanResponder,
+    Text,
     View,
+    Image
     } = React;
 
-var CIRCLE_SIZE = 80;
-var CIRCLE_COLOR = 'blue';
-var CIRCLE_HIGHLIGHT_COLOR = 'green';
-
+var UserInfo = React.createClass({
+    render() {
+        return (
+             <View style={styles.userInfo}>
+                <Image
+                    source={{uri: 'http://res.cloudinary.com/demo/image/facebook/billclinton.jpg'}}
+                    style={styles.thumbnail}/>
+                <View style={styles.rightContainer}>
+                    <Text style={styles.name}>{"profile.name"}</Text>
+                    <Text style={styles.stats}>{"user info"}</Text>
+                </View>
+            </View>
+        );
+    }
+});
 
 var Home = React.createClass({
+    render() {
+        return (
 
-    statics: {
-        title: 'PanResponder Sample',
-        description: 'Basic gesture handling example',
-    },
-
-    _panResponder: {},
-    _previousLeft: 0,
-    _previousTop: 0,
-    _circleStyles: {},
-    circle: (null : ?{ setNativeProps(props: Object): void }),
-
-componentWillMount: function() {
-    this._panResponder = PanResponder.create({
-        onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder,
-        onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,
-        onPanResponderGrant: this._handlePanResponderGrant,
-        onPanResponderMove: this._handlePanResponderMove,
-        onPanResponderRelease: this._handlePanResponderEnd,
-        onPanResponderTerminate: this._handlePanResponderEnd,
-    });
-    this._previousLeft = 20;
-    this._previousTop = 84;
-    this._circleStyles = {
-        left: this._previousLeft,
-        top: this._previousTop,
-    };
-},
-
-componentDidMount: function() {
-    this._updatePosition();
-},
-
-render: function() {
-    return (
-        <View
-            style={styles.container}>
-            <View
-                ref={(circle) => {
-            this.circle = circle;
-          }}
-                style={styles.circle}
-                {...this._panResponder.panHandlers}
-                />
-        </View>
-    );
-},
-
-_highlight: function() {
-    this.circle && this.circle.setNativeProps({
-        backgroundColor: CIRCLE_HIGHLIGHT_COLOR
-    });
-},
-
-_unHighlight: function() {
-    this.circle && this.circle.setNativeProps({
-        backgroundColor: CIRCLE_COLOR
-    });
-},
-
-_updatePosition: function() {
-    this.circle && this.circle.setNativeProps(this._circleStyles);
-},
-
-_handleStartShouldSetPanResponder: function(e: Object, gestureState: Object): boolean {
-    // Should we become active when the user presses down on the circle?
-    return true;
-},
-
-_handleMoveShouldSetPanResponder: function(e: Object, gestureState: Object): boolean {
-    // Should we become active when the user moves a touch over the circle?
-    return true;
-},
-
-_handlePanResponderGrant: function(e: Object, gestureState: Object) {
-    this._highlight();
-},
-_handlePanResponderMove: function(e: Object, gestureState: Object) {
-    this._circleStyles.left = this._previousLeft + gestureState.dx;
-    this._circleStyles.top = this._previousTop + gestureState.dy;
-    this._updatePosition();
-},
-_handlePanResponderEnd: function(e: Object, gestureState: Object) {
-    this._unHighlight();
-    this._previousLeft += gestureState.dx;
-    this._previousTop += gestureState.dy;
-},
+            <View style={styles.container}>
+                <UserInfo />
+            </View>
+        );
+    }
 });
 
 var styles = StyleSheet.create({
-    circle: {
-        width: CIRCLE_SIZE,
-        height: CIRCLE_SIZE,
-        borderRadius: CIRCLE_SIZE / 2,
-        backgroundColor: CIRCLE_COLOR,
-        position: 'absolute',
-        left: 0,
-        top: 0,
-    },
     container: {
         flex: 1,
-        paddingTop: 64,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF'
     },
+    userInfo: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+        backgroundColor: '#F5FCFF'
+    },
+    rightContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    name: {
+        textAlign: 'left',
+        fontSize: 18,
+        marginLeft: 20
+    },
+    stats: {
+        textAlign: 'right',
+        fontSize: 20,
+        marginRight: 20
+    },
+    thumbnail: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        margin: 6
+    }
 });
 
 module.exports = Home;
